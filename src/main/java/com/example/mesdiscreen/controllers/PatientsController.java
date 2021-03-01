@@ -2,69 +2,90 @@ package com.example.mesdiscreen.controllers;
 
 import com.example.mesdiscreen.modeles.Patients;
 import com.example.mesdiscreen.repositories.PatientsRepository;
+import com.example.mesdiscreen.services.PatientsService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Controller permettant de visualiser, d'ajouter, modifier et supprimer des elements a la table patients.
  *
  */
 
-@Controller
+@RestController
+@RequestMapping("patients")
 public class PatientsController {
-
 
     private static final Logger logger = LogManager.getLogger(PatientsController.class);
 
-    private final PatientsRepository patientsRepository;
-
     public PatientsController(PatientsRepository patientsRepository) {
-        this.patientsRepository = patientsRepository;
     }
 
-    /**
-     *
-     * @param model : parametre a a transmettre au Modele pour exposition a la vue : Liste de patients.
-     * @return : Retour de la page html.
-     */
+    @Autowired
+    PatientsService patientsService;
 
-    @RequestMapping("/patient/list")
-    public String home(Model model)
+    /**
+     * @return : Retourne la liste complete de tous les utilisateurs
+     */
+    @GetMapping("/list")
+    public List<Patients> listPatients()
     {
-        model.addAttribute("patients", patientsRepository.findAll());
-        return "patient/list";
-    }
-
-    /**
-     *
-     * @param patients : parametre a a transmettre au Modele pour exposition a la vue add de patients.
-     * @return : retour de la pgae html
-     */
-
-    @GetMapping("/patient/add")
-    public String addPatientsForm(Patients patients) {
-        return "patient/add";
+        return patientsService.listAll();
     }
 
 
     /**
-     *
-     * @param patients : instace de l'Objet Bidlist pour validation des contraintes de format
-     * @param result : resultat de la validation
-     * @param model : parametre a transmettre au Modele pour exposition a la vue : Liste de bidlist.
-     * @return : Retour de la page html.
+     * @param patients : parametre Objet Patient a transmettre au controller pour ajout a la liste des patients
      */
+    @PutMapping("/add")
+    public void addPatient(Patients patients) {
+        patientsService.save(patients);
+        logger.info("Element Patient ajouté");
+    }
 
-    @PostMapping("/patient/validate")
+
+    /**
+     *
+     * @param id : parametre idpatient du patient
+     * @return : retourne le patient correspondant a cet id
+     */
+    @GetMapping("/id")
+    public Patients showPatient(Integer id) {
+        return patientsService.get(id);
+     }
+
+
+    /**
+     *
+     * @param id : parametre idpatient du patient
+     * @param patients : parametre Objet Patient
+     * @return : Retourne le Patient mis a jour
+     */
+    @PostMapping("/update")
+    public void updatePatient(Integer id,Patients patients) {
+        patients.setIdpatients(id);
+        patientsService.save(patients);
+        logger.info("Element Patient mis a jour en BDD");
+    }
+
+
+    /**
+     *
+     * @param id : parametre idpatient du Patient a supprimer.
+     */
+    @DeleteMapping("/delete")
+    public void deletePatient(Integer id) {
+        patientsService.delete(id);
+        logger.info("Element Patient supprimé");
+    }
+
+
+
+
+/*    @PostMapping("/patient/validate")
     public String validate(@Valid Patients patients, BindingResult result, Model model) {
 
         // Verifie que les datas dont valides et sinon return sur la page d'ajout de données
@@ -78,52 +99,7 @@ public class PatientsController {
         }
         logger.info("Format non Valide");
         return "patient/add";
-    }
-
-    /**
-     *
-     * @param id : attribut du Modele Bidlist
-     * @param model : parametre a transmettre au Modele pour exposition a la vue : Liste de bidlist.
-     * @return : retour de la page html
-     */
-
-    @GetMapping("/patient/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws Exception {
-
-        Patients patients = patientsRepository.findByIdpatients(id);
-        model.addAttribute("patients", patients);
-        return "patient/update";
-    }
-
-
-    @PostMapping("/bidList/update/{id}")
-    public String updatePatient(@PathVariable("id") Integer id, @Valid Patients patients,
-                            BindingResult result, Model model) {
-
-        if (result.hasErrors()) {
-            logger.info("Format non Valide");
-            return "patient/update";
-        }
-        patients.setIdpatients(id);
-        patientsRepository.save(patients);
-        logger.info("Element Patient mis a jour en BDD");
-        model.addAttribute("patients", patientsRepository.findAll());
-        return "redirect:/patient/list";
-    }
-
-    @GetMapping("/patient/delete/{id}")
-    public String deletePatient(@PathVariable("id") Integer id, Model model) {
-
-        Patients patient = patientsRepository.findByIdpatients(id);
-        patientsRepository.delete(patient);
-        logger.info("Element Patient supprimé");
-        return "redirect:/patient/list";
-    }
-
-
-
-
-
+    }*/
 
 
 
