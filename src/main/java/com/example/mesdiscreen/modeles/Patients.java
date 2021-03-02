@@ -4,6 +4,7 @@ package com.example.mesdiscreen.modeles;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "patients")
@@ -24,7 +25,7 @@ public class Patients {
 
     @Column(name = "datenaissance")
     @NotBlank
-    private Timestamp datenaissance;
+    private String datenaissance;
 
     @Column(name = "genre")
     @NotBlank
@@ -42,7 +43,7 @@ public class Patients {
     public Patients() {
     }
 
-    public Patients(Integer idpatients, @NotBlank String prenom, @NotBlank String nom, @NotBlank Timestamp datenaissance, @NotBlank String genre, @NotBlank String adresse, @NotBlank String telephone) {
+    public Patients(Integer idpatients, @NotBlank String prenom, @NotBlank String nom, @NotBlank String datenaissance, @NotBlank String genre, @NotBlank String adresse, @NotBlank String telephone) {
         this.idpatients = idpatients;
         this.prenom = prenom;
         this.nom = nom;
@@ -51,6 +52,16 @@ public class Patients {
         this.adresse = adresse;
         this.telephone = telephone;
     }
+
+    public Patients(Integer idpatients, @NotBlank String prenom, @NotBlank String nom, @NotBlank String genre, @NotBlank String adresse, @NotBlank String telephone) {
+        this.idpatients = idpatients;
+        this.prenom = prenom;
+        this.nom = nom;
+        this.genre = genre;
+        this.adresse = adresse;
+        this.telephone = telephone;
+    }
+
 
     public Integer getIdpatients() {
         return idpatients;
@@ -76,11 +87,11 @@ public class Patients {
         this.nom = nom;
     }
 
-    public Timestamp getDatenaissance() {
+    public String getDatenaissance() {
         return datenaissance;
     }
 
-    public void setDatenaissance(Timestamp datenaissance) {
+    public void setDatenaissance(String datenaissance) {
         this.datenaissance = datenaissance;
     }
 
