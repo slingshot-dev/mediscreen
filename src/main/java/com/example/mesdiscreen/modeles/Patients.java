@@ -1,6 +1,9 @@
 package com.example.mesdiscreen.modeles;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
@@ -25,7 +28,7 @@ public class Patients {
 
     @Column(name = "datenaissance")
     @NotBlank
-    private String datenaissance;
+    private LocalDate datenaissance;
 
     @Column(name = "genre")
     @NotBlank
@@ -43,7 +46,7 @@ public class Patients {
     public Patients() {
     }
 
-    public Patients(Integer idpatients, @NotBlank String prenom, @NotBlank String nom, @NotBlank String datenaissance, @NotBlank String genre, @NotBlank String adresse, @NotBlank String telephone) {
+    public Patients(Integer idpatients, @NotBlank String prenom, @NotBlank String nom, @NotBlank LocalDate datenaissance, @NotBlank String genre, @NotBlank String adresse, @NotBlank String telephone) {
         this.idpatients = idpatients;
         this.prenom = prenom;
         this.nom = nom;
@@ -87,11 +90,11 @@ public class Patients {
         this.nom = nom;
     }
 
-    public String getDatenaissance() {
+    public LocalDate getDatenaissance() {
         return datenaissance;
     }
 
-    public void setDatenaissance(String datenaissance) {
+    public void setDatenaissance(LocalDate datenaissance) {
         this.datenaissance = datenaissance;
     }
 

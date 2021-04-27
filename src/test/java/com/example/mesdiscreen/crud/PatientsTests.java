@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -18,6 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,10 +31,7 @@ public class PatientsTests {
     @Autowired
     private PatientsRepository patientsRepository;
 
-    Patients patient1 = new Patients(1, "cyrille", "guillet", "1973/03/28","m", "7 Rue de Talhouet", "0123456789");
-    Patients patient2 = new Patients(2, "fabienne", "cassagne", "1971/02/17","f", "6 rue alexandre dumas 91170 viry-chatillon", "0663986587");
-    Patients patient3 = new Patients(3, "anne", "guillet", "1975/03/28","m", "7 Rue de Talhouet", "0123456789");
-
+    Patients patient3 = new Patients(5, "anne", "guillet", LocalDate.now(),"F", "7 Rue de Talhouet", "0123456789");
 
 
     @Test
@@ -44,9 +43,14 @@ public class PatientsTests {
 
     @Test
     public void updatePatient() {
-        patient2.setGenre("m");
-        patient2 = patientsRepository.save(patient2);
-        Assert.assertEquals(patient2.getGenre(), "f", "f");
+        Patients patients;
+        Optional<Patients> updPatients = patientsRepository.findById(1);
+        patients = updPatients.get();
+        patients.setGenre("M");
+        patientsRepository.save(patients);
+        updPatients = patientsRepository.findById(1);
+        patients = updPatients.get();
+        Assert.assertEquals(patients.getGenre(), "M", "M");
     }
 
     @Test
@@ -57,9 +61,11 @@ public class PatientsTests {
 
     @Test
     public void deletePatient() {
-        Integer id = patient1.getIdpatients();
-        patientsRepository.delete(patient1);
-        Optional<Patients> patientList = patientsRepository.findById(id);
+        Patients patients;
+        Optional<Patients> delPatients = patientsRepository.findById(2);
+        patients = delPatients.get();
+        patientsRepository.delete(patients);
+        Optional<Patients> patientList = patientsRepository.findById(2);
         Assert.assertFalse(patientList.isPresent());
     }
 

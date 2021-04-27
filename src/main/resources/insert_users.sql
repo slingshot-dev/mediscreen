@@ -16,33 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `patients`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `patients`;
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `patients` (
-  `idpatients` int NOT NULL AUTO_INCREMENT,
-  `prenom` varchar(45) NOT NULL,
+CREATE TABLE `users` (
+  `idusers` int NOT NULL AUTO_INCREMENT,
+  `statut` varchar(45) NOT NULL,
   `nom` varchar(45) NOT NULL,
-  `datenaissance` date NOT NULL,
-  `genre` varchar(45) NOT NULL,
-  `adresse` varchar(45) NOT NULL,
-  `telephone` varchar(45) NOT NULL,
-  PRIMARY KEY (`idpatients`),
-  UNIQUE KEY `idpatients_UNIQUE` (`idpatients`)
+  `prenom` varchar(45) NOT NULL,
+  `mail` varchar(45) NOT NULL,
+  `role` varchar(45) NOT NULL,
+  PRIMARY KEY (`idusers`),
+  UNIQUE KEY `idusers_UNIQUE` (`idusers`),
+  UNIQUE KEY `mail_UNIQUE` (`mail`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `patients`
+-- Dumping data for table `users`
 --
 
-LOCK TABLES `patients` WRITE;
-/*!40000 ALTER TABLE `patients` DISABLE KEYS */;
-INSERT INTO `patients` VALUES (1,'fabienne','cassagne','1966-12-31','F','1 Brookside St','100-222-3333'),(2,'cyrille','guillet','1945-06-24','M','2 High St','200-333-4444'),(3,'Jerome', 'doe','2004-06-18','M', '3 Club Road', '300-444-5555'),(4, 'alex', 'smith', '2002-06-28', 'F', '4 Valley Dr', '400-555-6666');
-/*!40000 ALTER TABLE `patients` ENABLE KEYS */;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'Dr','Andrieu','Paul','paul.andrieux@orange.fr','user'),(2,'Administrateur','Doe','John','john.doe@orange.fr','admin');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-01 11:45:07
+-- Dump completed on 2021-03-03 18:07:28

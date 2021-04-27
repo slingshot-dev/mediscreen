@@ -6,6 +6,7 @@ import com.example.mesdiscreen.services.PatientsService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,13 +17,14 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("patients")
+@RequestMapping("api/patients")
+@CrossOrigin
 public class PatientsController {
 
     private static final Logger logger = LogManager.getLogger(PatientsController.class);
 
-    public PatientsController(PatientsRepository patientsRepository) {
-    }
+//    public PatientsController(PatientsRepository patientsRepository) {
+//    }
 
     @Autowired
     PatientsService patientsService;
@@ -30,18 +32,21 @@ public class PatientsController {
     /**
      * @return : Retourne la liste complete de tous les utilisateurs
      */
+
     @GetMapping("/list")
     public List<Patients> listPatients()
     {
+        logger.info("Liste de tous les Patients récupérée");
         return patientsService.listAll();
+
     }
 
 
     /**
      * @param patients : parametre Objet Patient a transmettre au controller pour ajout a la liste des patients
      */
-    @PutMapping("/add")
-    public void addPatient(Patients patients) {
+    @PostMapping("/add")
+    public void addPatient(@RequestBody Patients patients) {
         patientsService.save(patients);
         logger.info("Element Patient ajouté");
     }
@@ -60,13 +65,12 @@ public class PatientsController {
 
     /**
      *
-     * @param id : parametre idpatient du patient
      * @param patients : parametre Objet Patient
      * @return : Retourne le Patient mis a jour
      */
     @PostMapping("/update")
-    public void updatePatient(Integer id,Patients patients) {
-        patients.setIdpatients(id);
+    public void updatePatient(@RequestBody Patients patients) {
+//        patients.setIdpatients(id);
         patientsService.save(patients);
         logger.info("Element Patient mis a jour en BDD");
     }
@@ -81,36 +85,4 @@ public class PatientsController {
         patientsService.delete(id);
         logger.info("Element Patient supprimé");
     }
-
-
-
-
-/*    @PostMapping("/patient/validate")
-    public String validate(@Valid Patients patients, BindingResult result, Model model) {
-
-        // Verifie que les datas dont valides et sinon return sur la page d'ajout de données
-        if (!result.hasErrors()) {
-
-            // Ajout des elements en BDD et redirection vers Bid List
-            patientsRepository.save(patients);
-            logger.info("Element Patient ajouté a la BDD");
-            model.addAttribute("patients", patientsRepository.findAll());
-            return "redirect:/patients/list";
-        }
-        logger.info("Format non Valide");
-        return "patient/add";
-    }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

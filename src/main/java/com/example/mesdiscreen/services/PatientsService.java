@@ -19,8 +19,8 @@ public class PatientsService {
         return repo.findAll();
     }
 
-    public void save(Patients patients) {
-        repo.save(patients);
+    public Patients save(Patients patients) {
+        return repo.save(patients);
     }
 
     public Patients get(Integer id) {

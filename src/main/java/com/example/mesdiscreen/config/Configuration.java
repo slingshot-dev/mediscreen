@@ -1,8 +1,9 @@
-package com.example.mesdiscreen.config;
+/*package com.example.mesdiscreen.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -13,8 +14,9 @@ import java.util.Collections;
 import static java.util.Arrays.asList;
 
 @org.springframework.context.annotation.Configuration
-public class Configuration extends WebSecurityConfigurerAdapter {
-
+@EnableWebSecurity
+public class Configuration extends WebSecurityConfigurerAdapter {*/
+/*
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -31,8 +33,10 @@ public class Configuration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/patients/**").permitAll();
+                .antMatchers("/**").permitAll()
+                .and().csrf().disable();
+//        http.authorizeRequests().antMatchers("/patients/**").authenticated().and().httpBasic().and().csrf().disable();
         http.cors();
-    }
+    }*/
 
-}
+/*}*/
