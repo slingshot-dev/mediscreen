@@ -1,7 +1,6 @@
 package com.example.mesdiscreen.controllers;
 
 import com.example.mesdiscreen.modeles.Patients;
-import com.example.mesdiscreen.repositories.PatientsRepository;
 import com.example.mesdiscreen.services.PatientsService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -85,4 +86,31 @@ public class PatientsController {
         patientsService.delete(id);
         logger.info("Element Patient supprimé");
     }
+
+
+    /**
+     *
+     * @param id : parametre idpatient du patient
+     * @return : retourne le patient correspondant a cet id
+     */
+    @GetMapping("/age")
+    public String agePatient(Integer id) {
+        LocalDate date = patientsService.get(id).getDatenaissance();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        String formattedString = date.format(formatter);
+
+        return patientsService.getAge(formattedString);
+    }
+
+    /**
+     *
+     * @param id : parametre idpatient du patient
+     * @return : retourne le patient correspondant a cet id
+     */
+    @GetMapping("/genre")
+    public String genrePatient(Integer id) {
+
+        return patientsService.get(id).getGenre();
+    }
+
 }
