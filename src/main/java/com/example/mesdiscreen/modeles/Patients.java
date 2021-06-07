@@ -1,13 +1,13 @@
 package com.example.mesdiscreen.modeles;
 
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.sql.Timestamp;
 import java.time.LocalDate;
+
+/**
+ * Modele patient
+ */
 
 @Entity
 @Table(name = "patients")
@@ -56,14 +56,6 @@ public class Patients {
         this.telephone = telephone;
     }
 
-    public Patients(Integer idpatients, @NotBlank String prenom, @NotBlank String nom, @NotBlank String genre, @NotBlank String adresse, @NotBlank String telephone) {
-        this.idpatients = idpatients;
-        this.prenom = prenom;
-        this.nom = nom;
-        this.genre = genre;
-        this.adresse = adresse;
-        this.telephone = telephone;
-    }
 
 
     public Integer getIdpatients() {

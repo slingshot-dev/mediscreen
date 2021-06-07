@@ -12,6 +12,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
+
+/**
+ * Service permettant l'ensemble des actions CRUD du programme.
+ */
+
 @Service
 @Transactional
 public class PatientsService {

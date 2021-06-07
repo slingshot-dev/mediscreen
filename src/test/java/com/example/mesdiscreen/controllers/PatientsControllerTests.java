@@ -18,9 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-//@AutoConfigureMockMvc(addFilters = false)
 @AutoConfigureMockMvc
-//@EnableAutoConfiguration(exclude = {SecurityFilterAutoConfiguration.class, SecurityAutoConfiguration.class})
 @Sql({"/insert_patients.sql"})
 public class PatientsControllerTests {
 
@@ -78,6 +76,24 @@ public class PatientsControllerTests {
     public void DeletePatient() throws Exception {
         // Arange & Act
         this.mockMvc.perform(delete("/api/patients/delete?id=1"))
+                // Assert
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void GetAge() throws Exception {
+        // Arange & Act
+        this.mockMvc.perform(get("/api/patients/age?id=1"))
+                // Assert
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void GetGenre() throws Exception {
+        // Arange & Act
+        this.mockMvc.perform(get("/api/patients/genre?id=1"))
                 // Assert
                 .andExpect(status().isOk())
                 .andDo(MockMvcResultHandlers.print());

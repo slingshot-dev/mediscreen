@@ -3,19 +3,22 @@ package com.example.mesdiscreen.services;
 import com.example.mesdiscreen.modeles.Patients;
 import com.example.mesdiscreen.repositories.PatientsRepository;
 import org.junit.Assert;
-import org.junit.Test;
+//import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
+@ActiveProfiles ("test")
 @SpringBootTest
 @Sql({"/insert_patients.sql"})
 public class PatientsServiceTests {
@@ -55,4 +58,10 @@ public class PatientsServiceTests {
         Assert.assertFalse(patientsService.listAll().contains(patient2));
     }
 
+    @Test
+    public void getAge() {
+        String age = patientsService.getAge("03/28/1973");
+        Assert.assertEquals(age, "48");
+
+    }
 }

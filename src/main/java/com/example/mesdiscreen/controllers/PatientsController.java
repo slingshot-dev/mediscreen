@@ -5,7 +5,6 @@ import com.example.mesdiscreen.services.PatientsService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -24,8 +23,7 @@ public class PatientsController {
 
     private static final Logger logger = LogManager.getLogger(PatientsController.class);
 
-//    public PatientsController(PatientsRepository patientsRepository) {
-//    }
+
 
     @Autowired
     PatientsService patientsService;
@@ -67,7 +65,6 @@ public class PatientsController {
     /**
      *
      * @param patients : parametre Objet Patient
-     * @return : Retourne le Patient mis a jour
      */
     @PostMapping("/update")
     public void updatePatient(@RequestBody Patients patients) {
@@ -91,7 +88,7 @@ public class PatientsController {
     /**
      *
      * @param id : parametre idpatient du patient
-     * @return : retourne le patient correspondant a cet id
+     * @return : retourne l'age du patient correspondant a cet id
      */
     @GetMapping("/age")
     public String agePatient(Integer id) {
@@ -105,7 +102,7 @@ public class PatientsController {
     /**
      *
      * @param id : parametre idpatient du patient
-     * @return : retourne le patient correspondant a cet id
+     * @return : retourne le Genre du Patient correspondant a cet id
      */
     @GetMapping("/genre")
     public String genrePatient(Integer id) {
