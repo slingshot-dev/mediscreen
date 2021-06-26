@@ -10,6 +10,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PatientsRepository extends JpaRepository<Patients, Integer> {
-
-
 }

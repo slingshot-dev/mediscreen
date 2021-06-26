@@ -57,6 +57,4 @@ public class PatientsService {
 
         return String.valueOf(calculAge);
     }
-
-
 }

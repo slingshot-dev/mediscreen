@@ -13,7 +13,6 @@ import java.util.List;
 
 /**
  * Controller permettant de visualiser, d'ajouter, modifier et supprimer des elements a la table patients.
- *
  */
 
 @RestController
@@ -24,7 +23,6 @@ public class PatientsController {
     private static final Logger logger = LogManager.getLogger(PatientsController.class);
 
 
-
     @Autowired
     PatientsService patientsService;
 
@@ -33,11 +31,9 @@ public class PatientsController {
      */
 
     @GetMapping("/list")
-    public List<Patients> listPatients()
-    {
+    public List<Patients> listPatients() {
         logger.info("Liste de tous les Patients récupérée");
         return patientsService.listAll();
-
     }
 
 
@@ -52,18 +48,16 @@ public class PatientsController {
 
 
     /**
-     *
      * @param id : parametre idpatient du patient
      * @return : retourne le patient correspondant a cet id
      */
     @GetMapping("/id")
     public Patients showPatient(Integer id) {
         return patientsService.get(id);
-     }
+    }
 
 
     /**
-     *
      * @param patients : parametre Objet Patient
      */
     @PostMapping("/update")
@@ -75,7 +69,6 @@ public class PatientsController {
 
 
     /**
-     *
      * @param id : parametre idpatient du Patient a supprimer.
      */
     @DeleteMapping("/delete")
@@ -86,7 +79,6 @@ public class PatientsController {
 
 
     /**
-     *
      * @param id : parametre idpatient du patient
      * @return : retourne l'age du patient correspondant a cet id
      */
@@ -100,7 +92,6 @@ public class PatientsController {
     }
 
     /**
-     *
      * @param id : parametre idpatient du patient
      * @return : retourne le Genre du Patient correspondant a cet id
      */
